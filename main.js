@@ -1,4 +1,10 @@
 Vue.component('product',{
+  props: {
+    premium: {
+      type: Boolean,
+      required: true,
+    }
+  },
   template: `
   <div class="product">
 
@@ -8,10 +14,9 @@ Vue.component('product',{
 
     <div class="product-info">
       <h1>{{ title }}</h1>
-      <p>{{description ? description : 'No description Available'}}</p> 
-      <ul>
-        <li v-for="detail in details">{{ detail }}</li>
-      </ul>
+      
+      <product-details :details="details"></product-details>
+
       <p>Size range:</p>
       <ul>
         <li v-for="size in sizes">{{size}}</li>
@@ -26,6 +31,8 @@ Vue.component('product',{
             @mouseover="updateProduct(index)">
       </div>
       
+      <p>Shipping: {{ shipping }}</p>
+
       <p v-if="inStock"> In stock </p>
       <p v-else-if="inventory <= 10 && inventory > 0">Almost gone!</p>
       <p v-else="inventory = 0"
@@ -49,8 +56,7 @@ Vue.component('product',{
       brand: 'Vue Mastery',
       product: 'Socks',
       selectedVariant: 0,
-      description: 'warm and fuzzy. good for the winter',
-      details: ["80% cotton", "20% polyester", "Gener-neutral"],
+      details: ["80% cotton", "20% polyester", "Gener-neutral"],      
       inventory: 12,
       sizes: ["32-34","36-38","40-42","44-46"],
       variants: [
@@ -106,11 +112,43 @@ Vue.component('product',{
     onSale(){
       if (this.variants[this.selectedVariant].onSale)
       return `${this.brand} ${this.product} is on sale now!`
+    },
+    shipping() {
+      if(this.premium) {
+        return "Free shipping"
+      } else {
+        return "3.75 usd"
+      }
     }
 
   }
 })
 
+Vue.component('product-details', {
+  props:{
+    details: {
+      type: Array,
+      required: true
+    }
+  },
+  template: `
+    <div>
+      <p>{{description ? description : 'No description Available'}}</p> 
+      <ul>
+        <li v-for="detail in details">{{ detail }}</li>
+      </ul>
+    </div>
+  `,
+  data() {
+    return {
+      description: 'warm and fuzzy. good for the winter',
+    }
+  }
+})
+
 const app = new Vue({
   el:"#app",
+  data: {
+    premium: false,
+  }
 })
