@@ -35,7 +35,7 @@
                @mouseover="updateProduct(index)">
           </div>
         
-        <p v-if="inventory > 10"> In stock </p>
+        <p v-if="inStock"> In stock </p>
         <p v-else-if="inventory <= 10 && inventory > 0">Almost gone!</p>
         <p v-else="inventory = 0"
           :class="{ outOfStock: !inStock }"> Out of stock </p>

@@ -7,20 +7,22 @@ const app = new Vue({
     description: 'warm and fuzzy. good for the winter',
     details: ["80% cotton", "20% polyester", "Gener-neutral"],
     inventory: 12,
-    inStock: true,
     sizes: ["32-34","36-38","40-42","44-46"],
     onSale: false,
     variants: [
       {
         variantId: 1,
         variantColor: "green",
-        variantImage: "./assets/Socks-green-onWhite.jpg"
+        variantImage: "./assets/Socks-green-onWhite.jpg",
+        variantQuantity: 10
 
       },
       {
         variantId: 2,
         variantColor: "blue",
-        variantImage: "./assets/Socks-blue-onWhite.jpg"
+        variantImage: "./assets/Socks-blue-onWhite.jpg",
+        variantQuantity: 0
+
       }
     ],
     cart: 0,
@@ -49,6 +51,10 @@ const app = new Vue({
     },
     image() {
       return this.variants[this.selectedVariant].variantImage
+    },
+    inStock() {
+      return this.variants[this.selectedVariant].variantQuantity
     }
+
   }
 })
