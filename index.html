@@ -37,10 +37,14 @@
         
         <p v-if="inventory > 10"> In stock </p>
         <p v-else-if="inventory <= 10 && inventory > 0">Almost gone!</p>
-        <p v-else="inventory = 0"> Out of stock </p>
+        <p v-else="{inventory = 0}"
+          :class="{ outOfStock: !inStock }"> Out of stock </p>
         <p v-if="onSale">ON SALE!</p>
 
-        <button v-on:click="addToCart">Add to cart</button>
+        <button v-on:click="addToCart"
+                :disabled="!inStock"
+                :class="{ disabledButton: !inStock }"
+                >Add to cart</button>
         <button v-on:click="removeFromCart">Remove from cart</button>
         <div class="cart">
           <p>Cart: {{ cart }}</p>
