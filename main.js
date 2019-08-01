@@ -3,7 +3,7 @@ const app = new Vue({
   data: {
     brand: 'Vue Mastery',
     product: 'Socks',
-    image:'./assets/Socks-green-onWhite.jpg',
+    selectedVariant: 0,
     description: 'warm and fuzzy. good for the winter',
     details: ["80% cotton", "20% polyester", "Gener-neutral"],
     inventory: 12,
@@ -38,13 +38,17 @@ const app = new Vue({
         this.cart -= 1
       }
     },
-    updateProduct: function(variantImage) {
-      this.image = variantImage
+    updateProduct: function(index) {
+      this.selectedVariant = index
+      console.log(index)
     }
   },
   computed: {
     title() {
       return this.brand + ' ' + this.product
+    },
+    image() {
+      return this.variants[this.selectedVariant].variantImage
     }
   }
 })
