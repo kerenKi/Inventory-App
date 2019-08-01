@@ -7,7 +7,8 @@ const app = new Vue({
     details: ["80% cotton", "20% polyester", "Gener-neutral"],
     videoLink: "https://youtu.be/CL4hENeteno",
     inventory: 10,
-    onSale: true,
+    sizes: ["32-34","36-38","40-42","44-46"],
+    onSale: false,
     variants: [
       {
         variantId: 1,

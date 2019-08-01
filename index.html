@@ -19,9 +19,13 @@
 
       <div class="product-info">
         <h1>{{ product }}</h1>
-        <p>{{description ? description : 'Nothing here'}}</p> 
+        <p>{{description ? description : 'No description Available'}}</p> 
         <ul>
           <li v-for="detail in details">{{ detail }}</li>
+        </ul>
+        <p>Size range:</p>
+        <ul>
+          <li v-for="size in sizes">{{size}}</li>
         </ul>
         <ul>
           <li v-for="variant in variants" :key="variant.variantId">{{ variant.variantColor }}</li>
