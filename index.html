@@ -33,8 +33,12 @@
         <p v-if="inventory > 10"> In stock </p>
         <p v-else-if="inventory <= 10 && inventory > 0">Almost gone!</p>
         <p v-else="inventory = 0"> Out of stock </p>
-        <a :href="videoLink">Make your own</a>
         <p v-if="onSale">ON SALE!</p>
+
+        <button>Add to cart</button>
+        <div class="cart">
+          <p>Cart: {{ cart }}</p>
+        </div>
 
       </div>
     
