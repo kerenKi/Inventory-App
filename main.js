@@ -5,7 +5,6 @@ const app = new Vue({
     image:'./assets/Socks-green-onWhite.jpg',
     description: 'warm and fuzzy. good for the winter',
     details: ["80% cotton", "20% polyester", "Gener-neutral"],
-    videoLink: "https://youtu.be/CL4hENeteno",
     inventory: 10,
     sizes: ["32-34","36-38","40-42","44-46"],
     onSale: false,
