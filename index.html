@@ -19,8 +19,18 @@
 
       <div class="product-info">
         <h1>{{ product }}</h1>
-        <p>{{description ? description : 'Nothing here'}}</p>  
+        <p>{{description ? description : 'Nothing here'}}</p> 
+        <ul>
+          <li v-for="detail in details">{{ detail }}</li>
+        </ul>
+        <ul>
+          <li v-for="variant in variants" :key="variant.variantId">{{ variant.variantColor }}</li>
+        </ul>
+        <p v-if="inventory > 10"> In stock </p>
+        <p v-else-if="inventory <= 10 && inventory > 0">Almost gone!</p>
+        <p v-else="inventory = 0"> Out of stock </p>
         <a :href="videoLink">Make your own</a>
+        <p v-if="onSale">ON SALE!</p>
 
       </div>
     
