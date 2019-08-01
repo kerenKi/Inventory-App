@@ -18,7 +18,7 @@
       </div>
 
       <div class="product-info">
-        <h1>{{ product }}</h1>
+        <h1>{{ title }}</h1>
         <p>{{description ? description : 'No description Available'}}</p> 
         <ul>
           <li v-for="detail in details">{{ detail }}</li>
@@ -37,7 +37,7 @@
         
         <p v-if="inventory > 10"> In stock </p>
         <p v-else-if="inventory <= 10 && inventory > 0">Almost gone!</p>
-        <p v-else="{inventory = 0}"
+        <p v-else="inventory = 0"
           :class="{ outOfStock: !inStock }"> Out of stock </p>
         <p v-if="onSale">ON SALE!</p>
 
