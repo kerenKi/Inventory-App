@@ -35,7 +35,7 @@
         <p v-else="inventory = 0"> Out of stock </p>
         <p v-if="onSale">ON SALE!</p>
 
-        <button>Add to cart</button>
+        <button v-on:click="cart += 1">Add to cart</button>
         <div class="cart">
           <p>Cart: {{ cart }}</p>
         </div>
