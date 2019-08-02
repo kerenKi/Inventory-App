@@ -51,6 +51,7 @@ Vue.component('product',{
     <div v-for="review in reviews">
       <span>{{review.name}}'s review: </span>
       <span>{{review.review}} {{review.rating}} stars </span>
+      <span>Would you recommend this product? {{review.recommendation}} </span>
     </div>
     <product-review @review-submitted="addReview"></product-review>
   </div>`,
@@ -184,7 +185,11 @@ Vue.component('product-review', {
           <option>1</option>
         </select>
       </p>
-          
+
+      <p>Would you recommend this product?</p>
+      <input type="radio" v-model="recommendation" value="Yes"> Yes
+      <input type="radio" v-model="recommendation" value="No"> No
+      
       <p>
         <input type="submit" value="Submit">  
       </p>   
@@ -195,6 +200,7 @@ Vue.component('product-review', {
       name: null,
       review: null,
       rating: null,
+      recommendation: null,
       errors:[]
     }
   },
@@ -204,12 +210,15 @@ Vue.component('product-review', {
         let productReview = {
           name: this.name,
           review: this.review,
-          rating: this.rating
+          rating: this.rating,
+          recommendation: this.recommendation
         }
         this.$emit('review-submitted', productReview)
         this.name = null,
         this.rating = null,
-        this.review = null
+        this.review = null,
+        this.recommendation = null
+
       } else {
         if(!this.name){this.errors.push('Missing a name')}
         if(!this.review){this.errors.push('Missing a review')}
