@@ -1,3 +1,5 @@
+const eventBus = new Vue()
+
 Vue.component('product',{
   props: {
     premium: {
@@ -45,15 +47,8 @@ Vue.component('product',{
               >Add to cart</button>
       <button v-on:click="removeFromCart">Remove from cart</button>
     </div>
-
-    <h2>Reviews:</h2>
-    <p v-if="!reviews.length">There are no reviews yet</p>
-    <div v-for="review in reviews">
-      <span>{{review.name}}'s review: </span>
-      <span>{{review.review}} {{review.rating}} stars </span>
-      <span>Would you recommend this product? {{review.recommendation}} </span>
-    </div>
-    <product-review @review-submitted="addReview"></product-review>
+    <product-tab :reviews="reviews"></product-tab>
+    <product-test :reviews="reviews"></product-test>
   </div>`,
   data() {
     return {
@@ -104,9 +99,6 @@ Vue.component('product',{
     },
     updateProduct: function(index) {
       this.selectedVariant = index
-    },
-    addReview(review){
-      this.reviews.push(review)
     }
   },
   computed: {
@@ -130,7 +122,9 @@ Vue.component('product',{
         return "3.75 usd"
       }
     }
-
+  },
+  mounted() {
+    eventBus.$on('review-submitted', productReview => this.reviews.push(productReview))
   }
 })
 
@@ -213,7 +207,7 @@ Vue.component('product-review', {
           rating: this.rating,
           recommendation: this.recommendation
         }
-        this.$emit('review-submitted', productReview)
+        eventBus.$emit('review-submitted', productReview)
         this.name = null,
         this.rating = null,
         this.review = null,
@@ -226,6 +220,42 @@ Vue.component('product-review', {
 
       }
       
+    }
+  }
+})
+
+Vue.component('product-tab', {
+  props:{
+    reviews:{
+      type: Array,
+      required: true
+    }
+  },
+  template:`
+  <div>
+    <span class="tab"
+      :class="{ activeTab: selectedTab === tab }"
+      v-for="(tab, index) in tabs" :key="index" @click="selectedTab = tab">
+      {{ tab }}</span>
+
+      <div v-show="selectedTab === 'Reviews'">
+        <h2>Reviews:</h2>
+        <p v-if="!reviews.length">There are no reviews yet</p>
+        <div v-for="review in reviews">
+          <span>{{review.name}}'s review: </span>
+          <span>{{review.review}} {{review.rating}} stars </span>
+          <span>Would you recommend this product? {{review.recommendation}} </span>
+        </div>
+      </div>
+
+    <product-review v-show="selectedTab === 'Make a Review'"></product-review>
+
+  </div>
+  `,
+  data(){
+    return {
+      tabs: ['Reviews', 'Make a Review'],
+      selectedTab: 'Reviews'
     }
   }
 })
