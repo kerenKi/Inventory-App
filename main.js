@@ -45,6 +45,9 @@ Vue.component('product',{
               >Add to cart</button>
       <button v-on:click="removeFromCart">Remove from cart</button>
     </div>
+
+    <h2>Reviews:</h2>
+    <p :reviews="reviews">{{ (reviews.length === 0) ? 'There are no reviews yet' : ''}}</p>
     <div v-for="review in reviews">
       <span>{{review.name}}'s review: </span>
       <span>{{review.review}} {{review.rating}} stars </span>
