@@ -71,7 +71,7 @@ Vue.component('product',{
           variantId: 2,
           variantColor: "blue",
           variantImage: "./assets/Socks-blue-onWhite.jpg",
-          variantQuantity: 0,
+          variantQuantity: 20,
           onSale: false,
   
   
@@ -82,14 +82,14 @@ Vue.component('product',{
   },
   methods: {
     addToCart () {
-      this.$emit('add-to-cart')
+      this.$emit('add-to-cart', this.variants[this.selectedVariant].variantId)
       this.inventory -= 1
       if (this.inventory === 0){
         this.inStock = false
       }
     },
     removeFromCart() {
-      this.$emit('remove-from-cart')
+      this.$emit('remove-from-cart',  this.variants[this.selectedVariant].variantId)
       this.inventory += 1
       if (this.inventory === 0){
         this.inStock = false
@@ -111,7 +111,7 @@ Vue.component('product',{
     },
     onSale(){
       if (this.variants[this.selectedVariant].onSale)
-      return `${this.brand} ${this.product} is on sale now!`
+      return `${this.brand} ${this.product} are on sale now!`
     },
     shipping() {
       if(this.premium) {
@@ -150,20 +150,18 @@ const app = new Vue({
   el:"#app",
   data: {
     premium: false,
-    cart: 0,
+    cart: [],
   },
   methods: {
-    updateCart(e) {
-      switch (e){
-        case 'add-to-cart':
-          return this.cart += 1
-        break;
-        case 'remove-from-cart':
-            if(this.cart > 0){
-              this.cart -= 1
-            }
-      }
-      
+    updateCart(id) {
+      return this.cart.push(id)
+    },
+    removeItem(id) {
+      console.log('id',id)
+      console.log('cart', this.cart)
+      itemIndex = this.cart.findIndex( item => item === id)
+        console.log( 'itemIndex', itemIndex)
+      return this.cart.splice(itemIndex, 1)  
     }
   }
 })
