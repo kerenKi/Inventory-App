@@ -47,7 +47,7 @@ Vue.component('product',{
     </div>
 
     <h2>Reviews:</h2>
-    <p :reviews="reviews">{{ (reviews.length === 0) ? 'There are no reviews yet' : ''}}</p>
+    <p v-if="!reviews.length">There are no reviews yet</p>
     <div v-for="review in reviews">
       <span>{{review.name}}'s review: </span>
       <span>{{review.review}} {{review.rating}} stars </span>
